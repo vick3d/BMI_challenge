@@ -1,0 +1,18 @@
+{
+  "name": "bmi_challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run features && npm run specs",
+    "features": "superstatic src -p 8080 & mocha --timeout 100000 --recursive  --reporter=spec features ; PORT=8080 npm run stop-test-server ",
+    "specs": "mocha --recursive  --reporter=spec spec",
+    "server": "superstatic src -p 3000",
+    "stop-test-server": "lsof -ti tcp:$PORT | xargs kill"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "e2e_training_wheels": "0.0.15"
+  }
+}
