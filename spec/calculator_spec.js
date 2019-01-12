@@ -15,4 +15,9 @@ describe("BMICalculator", function() {
         expect(person.bmiValue).to.equal(26.01);
     });
 
+    it ("sets BMI message for a person using metric method", () => {
+        calculator.metric_bmi(person);
+        expect(person.bmiMessage).to.equal('Overweight');
+    });
+
 });
