@@ -13,4 +13,4 @@ describe("Person", () => {
     it("should have height of 186", () => {
         expect(person.height).to.equal(186);
     });
-});
+}); 
