@@ -1,7 +1,7 @@
 require('../spec.helper')
 
 
-describe("BMICalculator", function() {
+describe("BMICalculator metric", function() {
     let calculator;
     let person;
 
@@ -19,5 +19,27 @@ describe("BMICalculator", function() {
         calculator.metric_bmi(person);
         expect(person.bmiMessage).to.equal('Overweight');
     });
-
 });
+describe("BMICalculator imperial", function() {
+    let calculator;
+    let person;
+
+    beforeEach(function() {
+        person = new Person({weight: 200, height: 72});
+        calculator = new BMICalculator(); 
+    }); 
+
+    it ("calculates BMI for a person using metric method", function() {
+        calculator.imperial_bmi(person);
+        expect(person.bmiValue).to.equal(27.12);
+    });
+
+    it ("sets BMI message for a person using metric method", () => {
+        calculator.imperial_bmi(person);
+        expect(person.bmiMessage).to.equal('Overweight');
+    });
+});
+
+
+
+
