@@ -81,8 +81,21 @@
             });
 
         const calculateBMI = () => {
+            
             return new Promise(resolve =>  {
+                let isVisible = (document.getElementById("imperial-inputs").style.display != "none");
                 
+                if(isVisible) {
+                    let w = parseFloat(document.getElementById('weight-in-lbs').value);
+                let h = parseFloat(document.getElementById('height-in-ft').value);
+                let person = new Person({
+                    weight: w,
+                    height: h,
+                });
+                person.calculate_imperial_bmi();
+                resolve(person); 
+
+                } else {
                 let w = parseFloat(document.getElementById('weight-in-kgs').value);
                 let h = parseFloat(document.getElementById('height-in-cm').value);
                 let person = new Person({
@@ -91,12 +104,9 @@
                 });
                 person.calculate_bmi();
                 resolve(person);  
-                
+                }    
             });
-        }    
-
-
-
+        }
         </script>
 
     </body>
