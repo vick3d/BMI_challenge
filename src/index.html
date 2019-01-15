@@ -1,56 +1,78 @@
 <!DOCTYPE html>
 <html>
-
-
-
+    
     <head>
+       
         <meta charset="utf-8">
         <title></title>
-        <script src="js/person.js"></script>
-        <script src="js/calculator.js"></script>
+        <script src="/js/calculator.js"></script>
+        <script src="/js/person.js"></script>
+        <link rel="stylesheet" href="style.css">
+           
     </head>
 
-    <body>
+    <body>      
+            <div id="toggleButtons">
+                <button onclick="toggleUnit('metric')">metric</button> 
+                <button onclick="toggleUnit('imperial')">imperial</button>
+            </div>
+            
+           
+        
         <form id="calculate">
-            <div id="metric-inputs">
-                <input type="text" id="weight-in-kgs" placeholder="Weight">
-                <input type="text" id="height-in-cm" placeholder="Height">
+
+            <div id="metric-inputs" style="display: block">
+                <input type="text" id="weight-in-kgs" placeholder="kgs">
+                <input type="text" id="height-in-cm" placeholder="cm">
+            </div>
+            
+            <div id="imperial-inputs" style="display: none">
+                    <input type="text" id="weight-in-lbs" placeholder="lbs">
+                    <input type="text" id="height-in-ft" placeholder="inches">
             </div>
 
-            <button type="submit" value="Calculate"> Calculate </button>
+            <button id="calculate" type="submit" > Calculate </button>
         </form>
-        <div>
-            <span id="display_value"></span>
-            <span id="display_message"></span>
+
+        <div id= "results">
+                <span id="display_value"></span>
+               <span id="display_message"></span>
         </div>
 
+           <script type="text/javascript">
+            
+            function toggleUnit (param) {
 
-        <script type="text/javascript">
-        // When the page has loaded, we create a set of global variables holding elements that we will use
-        // The attribute names speak for themselves 
-               
+                let metric = document.getElementById("metric-inputs");
+                let imperial = document.getElementById("imperial-inputs");
+
+                if (param === 'imperial') {
+                    metric.style.display = 'none';
+                    imperial.style.display = 'block';
+
+                } else {
+                    imperial.style.display = 'none';
+                    metric.style.display = 'block';
+                }         
+            }
+            
+         
             const global = {}
 
-            global.calculateForm = documentQuerySelector('#calculate');
+            global.calculateForm = document.querySelector('#calculate');
             global.displayValueElement = document.querySelector('#display_value');
             global.displayMessageElement = document.querySelector('#display_message');
 
-        // Once the page has loaded, we add listeners to the select tag and the form
-        // there's a lot ol events that we can listen for. 
-        // here, we listen for when a value has changed and when a form has been submitted
+    
             document.addEventListener('DOMContentLoaded', () => {
-        //Submit listener on the form
+        
                 global.calculateForm.addEventListener('submit', event => {
-        // 'preventDefault' prevents the default action the browser makes on the form
-        // we only want some java script to be executed, nothing else
+ 
                 event.preventDefault();
-        // the 'claculateBMI' function will create a ne instance of Person, calculate the 
-        // BMI and return the object. Its a asynchronous function (making use of a Promise)
-        // mening we can wait for the result and execute more code once we get the result back
+        
                 calculateBMI()
                     .then(person => {
-        // once we have the result of the calculation, it's time to modify
-        // the document and display the results for the user to see.
+        
                        global.displayValueElement.innerHTML = `Your BMI is ${person.bmiValue}`;
                        global.displayMessageElement.innerHTML = `and you are ${person.bmiMessage}`;     
                     })
@@ -68,7 +90,8 @@
                     height: h,
                 });
                 person.calculate_bmi();
-                resolve(person);   
+                resolve(person);  
+                
             });
         }    
 

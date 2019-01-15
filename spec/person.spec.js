@@ -1,4 +1,4 @@
-const { Person } = require('./spec.helper')
+require('../spec.helper')
 
 describe("Person", () => {
     let person = new Person({

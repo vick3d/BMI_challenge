@@ -1,0 +1,15 @@
+body {
+    background-color:#424242;
+  }
+
+
+#toggleButtons {
+    text-align: center;
+    margin-top: 11em;
+}
+
+#calculate {
+    text-align: center;
+    margin-top: 1em;
+}
+      

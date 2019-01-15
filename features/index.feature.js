@@ -1,6 +1,4 @@
-const { expect } = require('chai');
-const BrowserHelpers = require ('e2e_training_wheels')
-const browser = new BrowserHelpers()
+require('../spec.helper')
 
 describe('User can calculate BMI', () => {
     before(async () => {
@@ -10,20 +8,30 @@ describe('User can calculate BMI', () => {
 
     beforeEach(async () => {
         await browser.page.reload();
+
     });
 
     after(async () => {
         await browser.close();
     });
 
-    it('by inputing his weight and height', async () => {
+    describe('Using metric method', () => {
+        beforeEach(async () => {
+            await browser.fillIn("input[id='weight-in-kgs']", {with: "95"})
+            await browser.fillIn("input[id='height-in-cm']", {with: "185"})
+            await browser.clickOnButton("button[id='calculate']")
 
-        await browser.fillIn("input[id='weight-in-kgs']", {with: "95"})
-        await browser.fillIn("input[id='height-in-cm']", {with: "185"})
+        })
+
+        it('and see BMIvalue', async () => {
+            let content = await browser.getContent("span[id='display_value']")
+            expect(content).to.eql('Your BMI is 27.76');
+        });
     
-        await browser.clickOnButton("button")
-        let content = await browser.getContent("span[id='display_value']")
-        expect(content).to.eql('Your BMI is 27.76');
-        
-    });
+        it('and see BMImessage', async () => {
+            let content = await browser.getContent("span[id='display_message']")
+            expect(content).to.eql('and you are Overweight');
+        });    
+    })
+
 });

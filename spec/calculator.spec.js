@@ -1,8 +1,8 @@
-const { Person, BMICalculator } = require('./spec.helper')
+require('../spec.helper')
 
 
 describe("BMICalculator", function() {
-    let bmi_calulator;
+    let calculator;
     let person;
 
     beforeEach(function() {
